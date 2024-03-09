@@ -49,4 +49,5 @@ class City {
 // dhaka.add_citizen("Amin");
 // console.log(dhaka)
 
-export default City;
+// export default City;
+module.exports = City;
