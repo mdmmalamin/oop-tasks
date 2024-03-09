@@ -27,11 +27,11 @@ class World {
     const characters = 'abcdefghijklmnopqrstuvwxyz';
     const nameLength = Math.floor(Math.random() * 5) + 5;
 
-    let cityName = characters[Math.floor(Math.random() * 26)].toUpperCase();
+    let anyName = characters[Math.floor(Math.random() * 26)].toUpperCase();
     for(let i = 1; i < nameLength; i++) {
-      cityName += characters.charAt(Math.floor(Math.random() * characters.length));
+      anyName += characters.charAt(Math.floor(Math.random() * characters.length));
     }
-    return cityName;
+    return anyName;
   }
 
   generateAge() {
@@ -63,7 +63,7 @@ class World {
   }
 }
 
-class City extends World{
+class City extends World {
   constructor(name) {
     super();
     this.citizens = [];
@@ -82,25 +82,17 @@ class City extends World{
   }
 
   all_citizen() {
-      const citizen = this.cities.map(city => city.citizens.map(people=> people))
-      console.log(citizen[0].length);
-      return this.citizens.push(citizen);
+    const allCitizen = this.cities.map(citizensData => citizensData.citizens);
+    allCitizen.map(citizen => this.citizens.push(...citizen));
   }
 }
 
-class Citizen extends World{
-  constructor() {
+class Citizen extends World {
+  constructor(name) {
     super();
+    this.getInfo(name);
   }
-}
-
-const w = new World(2);
-console.log(w.total_cities());
-console.log(w);
-
-const city = new City();
-city.all_citizen();
-console.log(city.citizens);
-
-const a = new City();
-console.log(a.citizen);
+  getInfo(name) {
+    return this.cities.push({name: name, age: this.generateAge()});
+  }
+};

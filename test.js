@@ -27,11 +27,11 @@ class World {
     const characters = 'abcdefghijklmnopqrstuvwxyz';
     const nameLength = Math.floor(Math.random() * 5) + 5;
 
-    let cityName = characters[Math.floor(Math.random() * 26)].toUpperCase();
+    let anyName = characters[Math.floor(Math.random() * 26)].toUpperCase();
     for(let i = 1; i < nameLength; i++) {
-      cityName += characters.charAt(Math.floor(Math.random() * characters.length));
+      anyName += characters.charAt(Math.floor(Math.random() * characters.length));
     }
-    return cityName;
+    return anyName;
   }
 
   generateAge() {
@@ -63,10 +63,10 @@ class World {
   }
 }
 
-class City extends World{
+class City extends World {
   constructor(name) {
     super();
-    this.citizen = [];
+    this.citizens = [];
     this.add_city(name);
   }
 
@@ -78,57 +78,39 @@ class City extends World{
   }
 
   add_citizen(name, age) {
-    this.citizen.push({name: name, age: age});
+    this.citizens.push({name: name, age: age});
+  }
+
+  all_citizen() {
+    const allCitizen = this.cities.map(citizensData => citizensData.citizens);
+    allCitizen.map(citizen => this.citizens.push(...citizen));
   }
 }
 
-class Citizen extends World{
-  constructor() {
+class Citizen extends World {
+  constructor(name) {
     super();
+    this.getInfo(name);
+  }
+  getInfo(name) {
+    return this.cities.push({name: name, age: this.generateAge()});
   }
 }
 
-const newCitizen = new Citizen();
-console.log(newCitizen);
+const w = new World(2);
+console.log(w.total_cities());
+console.log(w);
 
-// const world = new World();
-// world.add_city('Dhaka');
-// console.log(world.total_cities());
+const city1 = new City();
+const city = new City();
+city1.all_citizen();
+city1.add_citizen('amin', 43);
+city.all_citizen();
+console.log(city1.citizens.length);
 
-// const newCity = new City("Rajshahi");
-// const newCity = new City();
-// newCity.add_citizen("amin", 87);
-// console.log(newCity);
+const a = new City();
+console.log(a.citizens);
 
+const amin = new Citizen("Amin");
 
-
-
-
-
-
-
-/*
-
-generateCityName() {
-  const characters = 'abcdefghijklmnopqrstuvwxyz';
-  const nameLength = Math.floor(Math.random() * 5) + 5;
-
-  let cityName = characters[Math.floor(Math.random() * 26)].toUpperCase();
-  for (let i = 1; i < nameLength; i++) {
-    cityName += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return cityName;
-}
-
-generateCitizenName() {
-  const characters = 'abcdefghijklmnopqrstuvwxyz';
-  const nameLength = Math.floor(Math.random() * 5) + 5;
-
-  let citizenName = characters[Math.floor(Math.random() * 26)].toUpperCase();
-  for (let i = 1; i < nameLength; i++) {
-    citizenName += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return citizenName;
-}
-
-*/
+console.log(amin);
